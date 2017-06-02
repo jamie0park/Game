@@ -1,6 +1,9 @@
 package kr.study.game;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.SurfaceTexture;
 import android.view.TextureView;
 
@@ -22,7 +25,19 @@ public class GameView extends TextureView implements TextureView.SurfaceTextureL
 
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+        Canvas canvas = lockCanvas();
 
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.RED);
+        canvas.drawCircle(300, 300, 200, paint);
+
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.BLUE);
+        paint.setStrokeWidth(8);
+        canvas.drawRect(0, 0, 500, 200, paint);
+
+        unlockCanvasAndPost(canvas);
     }
 
     @Override
@@ -32,7 +47,7 @@ public class GameView extends TextureView implements TextureView.SurfaceTextureL
 
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-        return false;
+        return true;
     }
 
     @Override
